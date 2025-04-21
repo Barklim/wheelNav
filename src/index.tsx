@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-const App = () => <h1>Hello Webpack + React + TypeScript!</h1>;
+const App = () => <h1>Wheel nav component</h1>;
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);

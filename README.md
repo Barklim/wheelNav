@@ -4,8 +4,11 @@ Customizable wheel nav component inspired by [wheelNav.js](https://wheelnavjs.so
 
 ## Scripts
 
-- `npm run start` - Running a frontend project on webpack dev server 
+- `npm run start` - Fast ⚡ Running a frontend project on webpack dev server 
 - `npm run build` - Build in dev mode (not minified)
+- `npm run storybook` - Storybook launch
+- `npm run build-storybook` - Build Storybook
+- `npm run deploy-storybook` - Deploy gh-pages
 
 ## Requirements
 

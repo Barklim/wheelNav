@@ -6,50 +6,62 @@ gsap.registerPlugin(MotionPathPlugin);
 
 const radius = 100;
 const duration = 1.5;
-const Test = ({ images }, ref) => {
+const Test = ({ images, onRotateComplete }, ref) => {
   const pointsRef = useRef([]);
   const tls = useRef([]);
+  const isRotatingRef = useRef(false); // флаг вращения
 
   useImperativeHandle(ref, () => ({
-    rotate() {
-      tls.current.forEach((tl) => tl.kill());
-      tls.current = [];
-    
+    rotate(degrees = 90) {
+      if (isRotatingRef.current) return; // блокируем повторный вызов
+      isRotatingRef.current = true;
+
+      let completed = 0;
+      // …очистка старых tl…
+
       // fade out текста
       gsap.to(pointsRef.current, {
-        duration: 0.5,
+        duration,
         stagger: 0.05,
-        ease: 'power1.out',
-        css: { '--after-opacity': 0 },
+        ease: "power1.out",
+        css: { "--after-opacity": 0 },
       });
-    
-      // СОБИРАЕМ paths
-      const paths = images.map((_, i) => {
-        const angle = (360 / images.length) * i;
-        return Array.from({ length: 360 }, (_, d) => {
-          const a = ((angle + d) * Math.PI) / 180;
+
+      images.forEach((_, i) => {
+        const startAngle = (360 / images.length) * i;
+
+        // length = degrees+1, чтобы пройти ровно degrees шагов
+        const path = Array.from({ length: degrees + 1 }, (_, d) => {
+          const a = ((startAngle + d) * Math.PI) / 180;
           return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
         });
-      });
-    
-      // И анимируем
-      images.forEach((_, i) => {
-        const angle = (360 / images.length) * i;
-        const rad   = (angle * Math.PI) / 180;
-        const x     = Math.cos(rad) * radius;
-        const y     = Math.sin(rad) * radius;
-    
-        gsap.set(pointsRef.current[i], { x, y, transform: 'translate(-50%,-50%)' });
-    
+
+        // ставим начальную точку
+        const startRad = (startAngle * Math.PI) / 180;
+        gsap.set(pointsRef.current[i], {
+          x: Math.cos(startRad) * radius,
+          y: Math.sin(startRad) * radius,
+          transform: "translate(-50%,-50%)",
+        });
+
+        // анимируем по новому path
         const tl = gsap.to(pointsRef.current[i], {
           duration,
-          ease: 'none',
-          motionPath: { path: paths[i], autoRotate: false },
+          ease: "none",
+          motionPath: { path, autoRotate: false },
+          onComplete: () => {
+            completed++;
+            if (completed === images.length) {
+              isRotatingRef.current = false;
+              // Counter of completed animations is completed
+              console.log("WTF execute cb");
+              onRotateComplete();
+            }
+          },
         });
         tls.current.push(tl);
       });
-    }
-    ,
+    },
   }));
 
   return (
@@ -66,13 +78,11 @@ const Test = ({ images }, ref) => {
               key={i}
               className="point"
               ref={(el) => (pointsRef.current[i] = el)}
-
               data-label="Some text"
-
               style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
+                position: "absolute",
+                top: "50%",
+                left: "50%",
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
             >
@@ -84,6 +94,5 @@ const Test = ({ images }, ref) => {
     </div>
   );
 };
-
 
 export default forwardRef(Test);

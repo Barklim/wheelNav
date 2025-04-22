@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { rotate } from "../utils/utils";
+import { rotate, getRotationStepsToActive } from "../utils/utils";
 import Test from "./Test";
 
 const initialImages = [
@@ -25,6 +25,12 @@ const TestWrapper = () => {
     orbitRef.current?.rotate(step);
   };
 
+  const handlePointClick = (src) => {
+    console.log("img, clicked", src);
+    const rotationStepsToActive = getRotationStepsToActive(images, src)
+    console.log(rotationStepsToActive);
+  };
+
   return (
     <div>
       <button onClick={() => handleRotate(1)}>Вращать по часовой</button>
@@ -34,6 +40,7 @@ const TestWrapper = () => {
         ref={orbitRef}
         images={images}
         onRotateComplete={handleRotateComplete}
+        onPointClick={handlePointClick}
       />
     </div>
   );

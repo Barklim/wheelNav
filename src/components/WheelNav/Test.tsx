@@ -8,7 +8,7 @@ gsap.registerPlugin(MotionPathPlugin);
 const radius = 100;
 const duration = 0.5;
 
-const Test = ({ images, onRotateComplete }, ref) => {
+const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref) => {
   const pointsRef = useRef({});
   const tls = useRef([]);
   const isRotatingRef = useRef(false);
@@ -37,7 +37,7 @@ const Test = ({ images, onRotateComplete }, ref) => {
           css: { "--after-opacity": 0 },
         });
 
-        const startAngle = (360 / images.length) * i;
+        const startAngle = ((360 / images.length) * i + initialAngle) % 360;
 
         const path = Array.from({ length: degrees }, (_, d) => {
           const a = ((startAngle + d * direction) * Math.PI) / 180;
@@ -73,7 +73,7 @@ const Test = ({ images, onRotateComplete }, ref) => {
     <div className="circle">
       <div className="logo-container">
         {images.map((src, i) => {
-          const angle = (360 / images.length) * i;
+          const angle = ((360 / images.length) * i + initialAngle) % 360;
           const rad = (angle * Math.PI) / 180;
           const x = Math.cos(rad) * radius;
           const y = Math.sin(rad) * radius;
@@ -92,6 +92,7 @@ const Test = ({ images, onRotateComplete }, ref) => {
                 left: "50%",
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
+              onClick={() => onPointClick?.(src)}
             >
               <img src={src} alt={`Logo ${i}`} />
             </div>

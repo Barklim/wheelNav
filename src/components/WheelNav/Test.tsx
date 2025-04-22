@@ -28,6 +28,7 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
       
       images.forEach((src, i) => {
         const point = pointsRef.current[src];
+        point?.classList.remove('active');
         if (!point) return;
 
         gsap.to(pointsRef.current[src], {
@@ -59,7 +60,7 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
             completed++;
             if (completed === images.length) {
               isRotatingRef.current = false;
-              onRotateComplete();
+              onRotateComplete(pointsRef);
             }
           },
         });
@@ -73,6 +74,7 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
     <div className="circle">
       <div className="logo-container">
         {images.map((src, i) => {
+          const isActive = i === images.length - 1;
           const angle = ((360 / images.length) * i + initialAngle) % 360;
           const rad = (angle * Math.PI) / 180;
           const x = Math.cos(rad) * radius;
@@ -81,7 +83,7 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
           return (
             <div
               key={i}
-              className="point"
+              className={`point ${isActive ? "active" : ""}`}
               ref={(el) => {
                 if (el) pointsRef.current[src] = el;
               }}

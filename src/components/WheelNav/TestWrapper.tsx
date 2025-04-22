@@ -16,25 +16,34 @@ const TestWrapper = () => {
   const orbitRef = useRef(null);
   const rotationStepRef = useRef(1);
 
-  const handleRotateComplete = () => {
-    setImages(prev => rotate(prev, rotationStepRef.current));
+  const handleRotateComplete = (pointsRef) => {
+    const newImages = rotate(images, rotationStepRef.current);
+    setImages(newImages);
+  
+    const newActive = newImages[newImages.length - 1];
+    const activePoint = pointsRef.current[newActive];
+    if (activePoint) {
+      activePoint.classList.add("active");
+    }
   };
-
+  
   const handleRotate = (step) => {
     rotationStepRef.current = step;
     orbitRef.current?.rotate(step);
   };
 
   const handlePointClick = (src) => {
-    console.log("img, clicked", src);
     const rotationStepsToActive = getRotationStepsToActive(images, src)
     console.log(rotationStepsToActive);
+    if (rotationStepsToActive !== 0) {
+      handleRotate(-rotationStepsToActive);
+    }
   };
 
   return (
     <div>
-      <button onClick={() => handleRotate(1)}>Вращать по часовой</button>
-      <button onClick={() => handleRotate(-1)}>Вращать против часовой</button>
+      <button onClick={() => handleRotate(-1)}>Лево</button>
+      <button onClick={() => handleRotate(1)}>Право</button>
 
       <Test
         ref={orbitRef}

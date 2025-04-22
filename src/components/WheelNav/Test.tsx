@@ -6,7 +6,6 @@ gsap.registerPlugin(MotionPathPlugin);
 
 const radius = 100;
 const duration = 5;
-
 const Test = ({ images }, ref) => {
   const pointsRef = useRef([]);
   const tls = useRef([]);
@@ -19,6 +18,16 @@ const Test = ({ images }, ref) => {
 
       images.forEach((_, i) => {
         const angle = (360 / images.length) * i;
+        const rad = (angle * Math.PI) / 180;
+        const x = Math.cos(rad) * radius;
+        const y = Math.sin(rad) * radius;
+
+        // Устанавливаем начальные позиции точек с помощью GSAP
+        gsap.set(pointsRef.current[i], {
+          x, 
+          y,
+          transform: `translate(-50%, -50%)`, // Чтобы точки точно находились на окружности
+        });
 
         // Создаем путь для точки по окружности
         const path = Array.from({ length: 360 }, (_, d) => {
@@ -56,7 +65,13 @@ const Test = ({ images }, ref) => {
               key={i}
               className="point"
               ref={(el) => (pointsRef.current[i] = el)}
+
+              data-label="Some text"
+
               style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
             >
@@ -68,5 +83,6 @@ const Test = ({ images }, ref) => {
     </div>
   );
 };
+
 
 export default forwardRef(Test);

@@ -5,9 +5,9 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 gsap.registerPlugin(MotionPathPlugin);
 
 const radius = 100;
-const duration = 1.5;
+const duration = 0.5;
 const Test = ({ images, onRotateComplete }, ref) => {
-  const pointsRef = useRef([]);
+  const pointsRef = useRef({});
   const tls = useRef([]);
   const isRotatingRef = useRef(false); // флаг вращения
 
@@ -18,16 +18,22 @@ const Test = ({ images, onRotateComplete }, ref) => {
 
       let completed = 0;
       // …очистка старых tl…
+      tls.current.forEach(tl => tl.kill());
+      tls.current = [];
 
-      // fade out текста
-      gsap.to(pointsRef.current, {
-        duration,
-        stagger: 0.05,
-        ease: "power1.out",
-        css: { "--after-opacity": 0 },
-      });
 
-      images.forEach((_, i) => {
+      images.forEach((src, i) => {
+        const point = pointsRef.current[src];
+        if (!point) return;
+
+        // fade out текста
+        gsap.to(pointsRef.current[src], {
+          duration,
+          stagger: 0.05,
+          ease: "power1.out",
+          css: { "--after-opacity": 0 },
+        });
+
         const startAngle = (360 / images.length) * i;
 
         // length = degrees+1, чтобы пройти ровно degrees шагов
@@ -38,14 +44,14 @@ const Test = ({ images, onRotateComplete }, ref) => {
 
         // ставим начальную точку
         const startRad = (startAngle * Math.PI) / 180;
-        gsap.set(pointsRef.current[i], {
+        gsap.set(point, {
           x: Math.cos(startRad) * radius,
           y: Math.sin(startRad) * radius,
           transform: "translate(-50%,-50%)",
         });
 
         // анимируем по новому path
-        const tl = gsap.to(pointsRef.current[i], {
+        const tl = gsap.to(point, {
           duration,
           ease: "none",
           motionPath: { path, autoRotate: false },
@@ -54,7 +60,6 @@ const Test = ({ images, onRotateComplete }, ref) => {
             if (completed === images.length) {
               isRotatingRef.current = false;
               // Counter of completed animations is completed
-              console.log("WTF execute cb");
               onRotateComplete();
             }
           },
@@ -77,7 +82,9 @@ const Test = ({ images, onRotateComplete }, ref) => {
             <div
               key={i}
               className="point"
-              ref={(el) => (pointsRef.current[i] = el)}
+              ref={(el) => {
+                if (el) pointsRef.current[src] = el;
+              }}
               data-label="Some text"
               style={{
                 position: "absolute",

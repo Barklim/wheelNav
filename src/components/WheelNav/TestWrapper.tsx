@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { rotate } from "../../utils";
+import { rotate } from "../utils";
 import Test from "./Test";
 
 const initialImages = [
@@ -17,10 +17,6 @@ const TestWrapper = () => {
 
   const handleRotateComplete = () => {
     setImages(prev => {
-
-      console.log("WTF inside");
-      console.log(images);
-      console.log(prev);
       return rotate(prev, 1)
     })
   };
@@ -32,6 +28,7 @@ const TestWrapper = () => {
       </button>
 
       <Test
+        key={images[0]}
         ref={orbitRef}
         images={images}
         onRotateComplete={handleRotateComplete}

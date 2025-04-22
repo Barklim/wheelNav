@@ -22,8 +22,10 @@ const Test = ({ images, onRotateComplete }, ref) => {
       tls.current.forEach(tl => tl.kill());
       tls.current = [];
 
-      const degrees = Math.abs(step) * getStepAngle(images);
-
+      const stepAngle = getStepAngle(images);
+      const degrees = Math.abs(step) * stepAngle;
+      const direction = Math.sign(step); 
+      
       images.forEach((src, i) => {
         const point = pointsRef.current[src];
         if (!point) return;
@@ -37,8 +39,8 @@ const Test = ({ images, onRotateComplete }, ref) => {
 
         const startAngle = (360 / images.length) * i;
 
-        const path = Array.from({ length: degrees + 1 }, (_, d) => {
-          const a = ((startAngle + d * step) * Math.PI) / 180;
+        const path = Array.from({ length: degrees }, (_, d) => {
+          const a = ((startAngle + d * direction) * Math.PI) / 180;
           return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
         });
 

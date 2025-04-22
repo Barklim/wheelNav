@@ -1,8 +1,9 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Text from './components/Text/Text';
+import './main.scss';
 
-const App = () => <h1>Wheel nav component</h1>;
+const App = () => <Text text={'Wheel nav component'} />;
 
-const container = document.getElementById("root")!;
-const root = createRoot(container);
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(<App />);

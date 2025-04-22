@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import Text from './components/Text/Text';
-import './main.scss';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.scss";
 
-const App = () => <Text text={'Wheel nav component'} />;
-
-const root = ReactDOM.createRoot(document.getElementById('root')!);
-root.render(<App />);
+createRoot(document.getElementById("root") as HTMLElement).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);

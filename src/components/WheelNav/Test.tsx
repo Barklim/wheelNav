@@ -8,6 +8,7 @@ gsap.registerPlugin(MotionPathPlugin);
 const radius = 100;
 const duration = 0.5;
 
+// TODO: Убрать after: css 
 const Test = (
   { images, onRotateComplete, onPointClick, initialAngle = 0 },
   ref
@@ -66,7 +67,9 @@ const Test = (
               onRotateComplete(pointsRef);
 
               const points = Object.values(pointsRef.current);
-              const activePoint = points.find((el) => el?.classList.contains("active"));
+              const activePoint = points.find((el) =>
+                el?.classList.contains("active")
+              );
 
               if (activePoint) {
                 gsap.to(activePoint, {
@@ -105,8 +108,6 @@ const Test = (
               ref={(el) => {
                 if (el) pointsRef.current[img.id] = el;
               }}
-              data-label="Some text"
-              // data-label={img.src}
               style={{
                 position: "absolute",
                 top: "50%",
@@ -115,8 +116,8 @@ const Test = (
               }}
               onClick={() => onPointClick?.(img.id)}
             >
-              {img.id}
               <img src={img.src} alt={`Logo ${img.id}`} />
+              <span className="label">{String(img.src).slice(20, 34)}</span>
             </div>
           );
         })}

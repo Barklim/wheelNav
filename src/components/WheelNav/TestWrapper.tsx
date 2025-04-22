@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { rotate, getRotationStepsToActive } from "../utils/utils";
+import { rotate, getRotationStepsToActive } from "../../utils";
 import Test from "./Test";
 
 const initialImages = [
@@ -35,8 +35,8 @@ const TestWrapper = () => {
   const handlePointClick = (clickedId) => {
     const rotationStepsToActive = getRotationStepsToActive(images, clickedId);
 
-    if (rotationStepsToActive !== 0) {
-      handleRotate(-rotationStepsToActive);
+    if (rotationStepsToActive !== 0 && rotationStepsToActive !== images.length) {
+      handleRotate(rotationStepsToActive);
     }
   };
 

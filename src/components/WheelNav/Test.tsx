@@ -8,7 +8,10 @@ gsap.registerPlugin(MotionPathPlugin);
 const radius = 100;
 const duration = 0.5;
 
-const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref) => {
+const Test = (
+  { images, onRotateComplete, onPointClick, initialAngle = 0 },
+  ref
+) => {
   const pointsRef = useRef({});
   const tls = useRef([]);
   const isRotatingRef = useRef(false);
@@ -19,19 +22,19 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
       isRotatingRef.current = true;
 
       let completed = 0;
-      tls.current.forEach(tl => tl.kill());
+      tls.current.forEach((tl) => tl.kill());
       tls.current = [];
 
       const stepAngle = getStepAngle(images);
       const degrees = Math.abs(step) * stepAngle;
-      const direction = Math.sign(step); 
-      
-      images.forEach((src, i) => {
-        const point = pointsRef.current[src];
-        point?.classList.remove('active');
+      const direction = Math.sign(step);
+
+      images.forEach((img, i) => {
+        const point = pointsRef.current[img.id];
+        point?.classList.remove("active");
         if (!point) return;
 
-        gsap.to(pointsRef.current[src], {
+        gsap.to(point, {
           duration,
           stagger: 0.05,
           ease: "power1.out",
@@ -39,7 +42,6 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
         });
 
         const startAngle = ((360 / images.length) * i + initialAngle) % 360;
-
         const path = Array.from({ length: degrees }, (_, d) => {
           const a = ((startAngle + d * direction) * Math.PI) / 180;
           return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
@@ -60,7 +62,23 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
             completed++;
             if (completed === images.length) {
               isRotatingRef.current = false;
+
               onRotateComplete(pointsRef);
+
+              const points = Object.values(pointsRef.current);
+              const activePoint = points.find((el) => el?.classList.contains("active"));
+
+              if (activePoint) {
+                gsap.to(activePoint, {
+                  delay: 0.1,
+                  duration: 0.5,
+                  css: { "--after-opacity": 1 },
+                  ease: "power1.out",
+                  onComplete: () => {
+                    activePoint.classList.add("active");
+                  },
+                });
+              }
             }
           },
         });
@@ -73,7 +91,7 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
   return (
     <div className="circle">
       <div className="logo-container">
-        {images.map((src, i) => {
+        {images.map((img, i) => {
           const isActive = i === images.length - 1;
           const angle = ((360 / images.length) * i + initialAngle) % 360;
           const rad = (angle * Math.PI) / 180;
@@ -82,21 +100,23 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
 
           return (
             <div
-              key={i}
+              key={img.id}
               className={`point ${isActive ? "active" : ""}`}
               ref={(el) => {
-                if (el) pointsRef.current[src] = el;
+                if (el) pointsRef.current[img.id] = el;
               }}
               data-label="Some text"
+              // data-label={img.src}
               style={{
                 position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
-              onClick={() => onPointClick?.(src)}
+              onClick={() => onPointClick?.(img.id)}
             >
-              <img src={src} alt={`Logo ${i}`} />
+              {img.id}
+              <img src={img.src} alt={`Logo ${img.id}`} />
             </div>
           );
         })}
@@ -104,6 +124,5 @@ const Test = ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref)
     </div>
   );
 };
-
 
 export default forwardRef(Test);

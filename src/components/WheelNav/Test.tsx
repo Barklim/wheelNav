@@ -7,23 +7,16 @@ gsap.registerPlugin(useGSAP);
 const radius = 100;
 const duration = 1;
 
-interface TestProps {
-  images: string[];
-}
-
-export interface TestRef {
-  rotate: () => void;
-}
-
-function Test({ images }: TestProps, ref: React.ForwardedRef<TestRef>) {
-  const orbitRef = useRef<HTMLDivElement>(null);
-  const tl = useRef<gsap.core.Tween | null>(null);
+function Test({ images }, ref) {
+  const orbitRef = useRef(null);
+  const tl = useRef(null);
+  const rotationAngle = 360 / images.length
 
   useImperativeHandle(ref, () => ({
     rotate() {
       if (tl.current) tl.current.kill();
       tl.current = gsap.to(orbitRef.current, {
-        rotation: "+=360",
+        rotation: `+=${rotationAngle}`,
         duration,
         ease: "power1.inOut",
       });
@@ -33,7 +26,7 @@ function Test({ images }: TestProps, ref: React.ForwardedRef<TestRef>) {
   return (
     <div className="circle">
       <div className="logo-container" ref={orbitRef}>
-        {images.map((src: string, i: number) => {
+        {images.map((src, i) => {
           const angle = (360 / images.length) * i;
           const rad = (angle * Math.PI) / 180;
           const x = Math.cos(rad) * radius;
@@ -43,7 +36,9 @@ function Test({ images }: TestProps, ref: React.ForwardedRef<TestRef>) {
             <div
               key={i}
               className="point"
-              style={{ transform: `translate(${x}px, ${y}px)` }}
+              style={{
+                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+              }}
             >
               <img
                 src={src}
@@ -53,6 +48,7 @@ function Test({ images }: TestProps, ref: React.ForwardedRef<TestRef>) {
                   borderRadius: "50%",
                 }}
               />
+              <div>Some text</div>
             </div>
           );
         })}
@@ -61,4 +57,4 @@ function Test({ images }: TestProps, ref: React.ForwardedRef<TestRef>) {
   );
 }
 
-export default forwardRef<TestRef, TestProps>(Test);
+export default forwardRef(Test);

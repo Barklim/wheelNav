@@ -18,6 +18,7 @@ const TestWrapper = () => {
           "https://i.pravatar.cc/80?img=3",
           "https://i.pravatar.cc/80?img=4",
           "https://i.pravatar.cc/80?img=5",
+          "https://i.pravatar.cc/80?img=6",
         ]}
       />
     </div>

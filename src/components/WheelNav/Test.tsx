@@ -1,49 +1,50 @@
 import React, { useRef, useImperativeHandle, forwardRef } from "react";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import MotionPathPlugin from "gsap/MotionPathPlugin";
-
-const radius = 100;
-const duration = 1;
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 gsap.registerPlugin(MotionPathPlugin);
 
+const radius = 100;
+const duration = 5;
+
 const Test = ({ images }, ref) => {
-  const orbitRef = useRef(null);
-  const tl = useRef(null);
-  const rotationAngle = 360 / images.length;
+  const pointsRef = useRef([]);
+  const tls = useRef([]);
 
   useImperativeHandle(ref, () => ({
     rotate() {
-      if (tl.current) tl.current.kill();
-      const bezierPath = images.map((_, i) => {
+      // Очистим старые анимации
+      tls.current.forEach((tl) => tl.kill());
+      tls.current = [];
+
+      images.forEach((_, i) => {
         const angle = (360 / images.length) * i;
-        const rad = (angle * Math.PI) / 180;
-        const x = Math.cos(rad) * radius;
-        const y = Math.sin(rad) * radius;
 
-        return { x: `${x + 100}px`, y: `${y + 100}px` }; // смещение для центра
-      });
+        // Создаем путь для точки по окружности
+        const path = Array.from({ length: 360 }, (_, d) => {
+          const rad = ((angle + d) * Math.PI) / 180;
+          const x = Math.cos(rad) * radius;
+          const y = Math.sin(rad) * radius;
+          return { x, y };
+        });
 
-      tl.current = gsap.to(orbitRef.current, {
-        duration: 10, // Время анимации
-        repeat: -1, // Повторять бесконечно
-        yoyo: true, // Возвращаться в начальное положение
-        // bezier: bezierPath, // Массив точек для движения
-        ease: "linear.none", // Линейное движение
+        const tl = gsap.to(pointsRef.current[i], {
+          duration,
+          ease: "none",
+          motionPath: {
+            path,
+            autoRotate: false,
+          },
+        });
 
-        motionPath: {
-          path: [{x: 100, y: -20}], // you probably want more points here...or just use an SVG <path>!
-          curviness: 2,
-          autoRotate: true
-        }
+        tls.current.push(tl);
       });
     },
   }));
 
   return (
     <div className="circle">
-      <div className="logo-container" ref={orbitRef}>
+      <div className="logo-container">
         {images.map((src, i) => {
           const angle = (360 / images.length) * i;
           const rad = (angle * Math.PI) / 180;
@@ -54,15 +55,12 @@ const Test = ({ images }, ref) => {
             <div
               key={i}
               className="point"
+              ref={(el) => (pointsRef.current[i] = el)}
               style={{
                 transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
               }}
             >
-              <img
-                src={src}
-                alt={`Logo ${i}`}
-              />
-              <div>SomeText</div>
+              <img src={src} alt={`Logo ${i}`} />
             </div>
           );
         })}

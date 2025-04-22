@@ -1,17 +1,17 @@
-import React, { useRef, useImperativeHandle, forwardRef } from "react";
+import { useRef, useImperativeHandle, forwardRef } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../utils";
-import { TestProps, TestRef, PointRef, Image } from "../../types/wheelNav";
+import { WheelNavProps, TestRef, PointRef, Image } from "../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 
 gsap.registerPlugin(MotionPathPlugin);
 
 const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
 
-// TODO: Убрать after: css 
-const Test = forwardRef<TestRef, TestProps>(
-  ({ images, onRotateComplete, onPointClick, initialAngle = 0 }, ref) => {
+// TODO: reove after::css 
+const WheelNav = forwardRef<TestRef, WheelNavProps>(
+  ({ images, onRotateComplete, onPointClick, initialAngle = 0, circleSize }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
     const isRotatingRef = useRef<boolean>(false);
@@ -91,7 +91,14 @@ const Test = forwardRef<TestRef, TestProps>(
     }));
 
     return (
-      <div className="circle">
+      <div 
+        className="circle" 
+        // ?
+        style={circleSize ? {
+          width: circleSize.width,
+          height: circleSize.height
+        } : undefined}
+      >
         <div className="logo-container">
           {images.map((img: Image, i: number) => {
             const isActive = i === images.length - 1;
@@ -126,4 +133,4 @@ const Test = forwardRef<TestRef, TestProps>(
   }
 );
 
-export default Test;
+export default WheelNav;

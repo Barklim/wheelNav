@@ -1,1 +1,2 @@
-export { default as TestWrapper } from "./TestWrapper";
+export { default as WheelNav } from "./WheelNav";
+export { default as WheelNavWrapper } from "./WheelNavWrapper";

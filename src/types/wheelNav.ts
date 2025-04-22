@@ -7,13 +7,25 @@ export interface PointRef {
   [key: string]: HTMLElement;
 }
 
-export interface TestProps {
+export interface WheelNavProps {
   images: Image[];
   onRotateComplete: (pointsRef: PointRef) => void;
   onPointClick: (clickedId: string) => void;
   initialAngle?: number;
+  circleSize?: {
+    width: string;
+    height: string;
+  };
 }
 
 export interface TestRef {
   rotate: (step?: number) => void;
+}
+
+export interface WheelNavWrapperProps {
+  initialImages: Image[];
+  circleSize?: {
+    width: string;
+    height: string;
+  };
 } 

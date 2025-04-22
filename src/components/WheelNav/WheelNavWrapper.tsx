@@ -1,13 +1,10 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { rotate, getRotationStepsToActive } from "../../utils";
-import Test from "./Test";
-import { Image, PointRef, TestRef } from "../../types/wheelNav";
-import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import { Image, PointRef, TestRef, WheelNavWrapperProps } from "../../types/wheelNav";
+import WheelNav from "./WheelNav";
 
-const { INITIAL_IMAGES } = WHEEL_NAV_CONSTANTS;
-
-const TestWrapper = () => {
-  const [images, setImages] = useState<Image[]>(INITIAL_IMAGES);
+const WheelNavWrapper = ({ initialImages, circleSize }: WheelNavWrapperProps) => {
+  const [images, setImages] = useState<Image[]>(initialImages);
   const orbitRef = useRef<TestRef>(null);
   const rotationStepRef = useRef<number>(1);
 
@@ -37,17 +34,18 @@ const TestWrapper = () => {
 
   return (
     <div>
-      <button onClick={() => handleRotate(-1)}>Лево</button>
-      <button onClick={() => handleRotate(1)}>Право</button>
+      <button onClick={() => handleRotate(-1)}>Left</button>
+      <button onClick={() => handleRotate(1)}>Right</button>
 
-      <Test
+      <WheelNav
         ref={orbitRef}
         images={images}
         onRotateComplete={handleRotateComplete}
         onPointClick={handlePointClick}
+        circleSize={circleSize}
       />
     </div>
   );
 };
 
-export default TestWrapper;
+export default WheelNavWrapper;

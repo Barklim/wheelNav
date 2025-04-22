@@ -1,5 +1,6 @@
 # Todo.md
 
+- LS for points position
 - useGsap
 - Storybook with example
 - Tests

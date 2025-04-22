@@ -1,5 +1,5 @@
 export const WHEEL_NAV_CONSTANTS = {
-  RADIUS: 100,
+  RADIUS: 150,
   DURATION: 0.5,
   INITIAL_IMAGES: [
     { id: "1", src: "https://i.pravatar.cc/80?img=1" },

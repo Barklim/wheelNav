@@ -3,11 +3,11 @@ import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../utils";
 import { TestProps, TestRef, PointRef, Image } from "../../types/wheelNav";
+import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 
 gsap.registerPlugin(MotionPathPlugin);
 
-const radius = 100;
-const duration = 0.5;
+const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
 
 // TODO: Убрать after: css 
 const Test = forwardRef<TestRef, TestProps>(
@@ -35,7 +35,7 @@ const Test = forwardRef<TestRef, TestProps>(
           if (!point) return;
 
           gsap.to(point, {
-            duration,
+            duration: DURATION,
             stagger: 0.05,
             ease: "power1.out",
             css: { "--after-opacity": 0 },
@@ -44,18 +44,18 @@ const Test = forwardRef<TestRef, TestProps>(
           const startAngle = ((360 / images.length) * i + initialAngle) % 360;
           const path = Array.from({ length: degrees }, (_, d) => {
             const a = ((startAngle + d * direction) * Math.PI) / 180;
-            return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
+            return { x: Math.cos(a) * RADIUS, y: Math.sin(a) * RADIUS };
           });
 
           const startRad = (startAngle * Math.PI) / 180;
           gsap.set(point, {
-            x: Math.cos(startRad) * radius,
-            y: Math.sin(startRad) * radius,
+            x: Math.cos(startRad) * RADIUS,
+            y: Math.sin(startRad) * RADIUS,
             transform: "translate(-50%, -50%)",
           });
 
           const tl = gsap.to(point, {
-            duration,
+            duration: DURATION,
             ease: "none",
             motionPath: { path, autoRotate: false },
             onComplete: () => {
@@ -97,8 +97,8 @@ const Test = forwardRef<TestRef, TestProps>(
             const isActive = i === images.length - 1;
             const angle = ((360 / images.length) * i + initialAngle) % 360;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * radius;
-            const y = Math.sin(rad) * radius;
+            const x = Math.cos(rad) * RADIUS;
+            const y = Math.sin(rad) * RADIUS;
 
             return (
               <div

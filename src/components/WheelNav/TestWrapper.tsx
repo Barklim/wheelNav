@@ -2,18 +2,12 @@ import React, { useRef, useState } from "react";
 import { rotate, getRotationStepsToActive } from "../../utils";
 import Test from "./Test";
 import { Image, PointRef, TestRef } from "../../types/wheelNav";
+import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 
-const initialImages: Image[] = [
-  { id: "1", src: "https://i.pravatar.cc/80?img=1" },
-  { id: "2", src: "https://i.pravatar.cc/80?img=2" },
-  { id: "3", src: "https://i.pravatar.cc/80?img=3" },
-  { id: "4", src: "https://i.pravatar.cc/80?img=4" },
-  { id: "5", src: "https://i.pravatar.cc/80?img=5" },
-  { id: "6", src: "https://i.pravatar.cc/80?img=6" },
-];
+const { INITIAL_IMAGES } = WHEEL_NAV_CONSTANTS;
 
 const TestWrapper = () => {
-  const [images, setImages] = useState<Image[]>(initialImages);
+  const [images, setImages] = useState<Image[]>(INITIAL_IMAGES);
   const orbitRef = useRef<TestRef>(null);
   const rotationStepRef = useRef<number>(1);
 

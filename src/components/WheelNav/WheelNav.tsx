@@ -2,7 +2,8 @@ import { useRef, useImperativeHandle, forwardRef } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../utils";
-import { WheelNavProps, OrbitRef, PointRef, Point } from "../../types/wheelNav";
+import { WheelNavProps, OrbitRef, PointRef } from "./types";
+import { Point } from "../../types/wheelNav";
 import styles from "./WheelNav.module.scss";
 
 gsap.registerPlugin(MotionPathPlugin);

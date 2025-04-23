@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { rotate, getRotationStepsToActive } from "../../utils";
-import { Point, PointRef, OrbitRef, WheelNavWrapperProps } from "../../types/wheelNav";
+import { PointRef, OrbitRef, WheelNavWrapperProps } from "./types";
+import { Point } from "../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 import WheelNav from "./WheelNav";
+import Intervals from "../Intervals/Intervals";
 
-const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
+const { RADIUS, DURATION, INTERVALS } = WHEEL_NAV_CONSTANTS;
 
-const WheelNavWrapper = ({ initialPoints, radius = RADIUS, duration = DURATION }: WheelNavWrapperProps) => {
+const WheelNavWrapper = ({ initialPoints, intervals = INTERVALS, radius = RADIUS, duration = DURATION}: WheelNavWrapperProps) => {
   const [points, setPoints] = useState<Point[]>(initialPoints);
   const orbitRef = useRef<OrbitRef>(null);
   const rotationStepRef = useRef<number>(1);
@@ -40,6 +42,7 @@ const WheelNavWrapper = ({ initialPoints, radius = RADIUS, duration = DURATION }
       <button onClick={() => handleRotate(-1)}>Left</button>
       <button onClick={() => handleRotate(1)}>Right</button>
 
+      <Intervals intervals={intervals} activeItem={0} duration={duration} />
       <WheelNav
         ref={orbitRef}
         points={points}

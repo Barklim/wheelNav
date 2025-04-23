@@ -7,6 +7,7 @@ const App = () => (
     initialPoints={WHEEL_NAV_CONSTANTS.POINTS}
     radius={WHEEL_NAV_CONSTANTS.RADIUS}
     duration={WHEEL_NAV_CONSTANTS.DURATION}
+    intervals={WHEEL_NAV_CONSTANTS.INTERVALS}
   />
 );
 

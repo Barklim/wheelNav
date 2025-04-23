@@ -3,4 +3,10 @@
 .pointImg {
   width: $point-width;
   height: $point-height;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+
+  &.active {
+    transform: scale(1.6);
+  }
 }

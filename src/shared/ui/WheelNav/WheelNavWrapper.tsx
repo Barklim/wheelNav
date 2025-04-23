@@ -3,8 +3,9 @@ import { rotate, getRotationStepsToActive } from "../../../lib";
 import { PointRef, OrbitRef, WheelNavWrapperProps } from "./types";
 import { Point } from "../../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../constants/wheelNav";
+import { NavButton } from "../NavButton";
+import { Intervals } from "../Intervals";
 import WheelNav from "./WheelNav";
-import Intervals from "../Intervals/Intervals";
 import styles from "./WheelNav.module.scss";
 
 const { DURATION, RADIUS, INITIAL_ANGLE, INTERVALS } = WHEEL_NAV_CONSTANTS;
@@ -74,9 +75,12 @@ const WheelNavWrapper = ({
         initialAngle={initialAngle}
         customPoint={customPoint}
       />
-      <div style={{display: 'flex', flexDirection: 'row' }}>
-        <button onClick={() => handleRotate(1)}>Left</button>
-        <button onClick={() => handleRotate(-1)}>Right</button>
+      <div className={styles.buttonsWrapper}>
+        <p className={styles.buttonsTitle}>{`0${activeItem}/0${points.length}`}</p>
+        <div className={styles.buttons}>
+          <NavButton direction="left" disabled={activeItem === 1} onClick={() => handleRotate(1)} />
+          <NavButton direction="right" disabled={activeItem === points.length} onClick={() => handleRotate(-1)} />
+        </div>
       </div>
     </div>
   );

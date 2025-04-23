@@ -1,0 +1,35 @@
+@use '../../constants/styles.scss' as *;
+
+.navButton {
+  width: $nav-button-size;
+  height: $nav-button-size;
+  border-radius: 50%;
+  border: 1px solid $nav-button-color;
+  background: $bg-color;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: $text-color;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: white;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  }
+} 
+
+.navButton.disabled {
+  opacity: 0.4;
+
+  &:hover {
+    background: inherit;
+  }
+}

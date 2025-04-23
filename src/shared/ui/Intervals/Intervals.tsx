@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { IntervalProps } from "./types";
 import styles from "./Intervals.module.scss";
 
-const Intervals = ({ intervals, activeItem, duration, radius}: IntervalProps) => {
+export const Intervals = ({ intervals, activeItem, duration, radius}: IntervalProps) => {
     if (!intervals) {return null}
 
     const [startInterval, setStartInterval] = React.useState({ value: intervals[0]?.start ?? 2000 })
@@ -48,5 +48,3 @@ const Intervals = ({ intervals, activeItem, duration, radius}: IntervalProps) =>
         </div>
     )
 }
-
-export default Intervals;

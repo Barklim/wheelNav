@@ -1,3 +1,7 @@
+# Done.md
+
+- Accessability aka aria-label
+
 # Todo.md
 
 - button disabling time prop for duration + 0.1ms

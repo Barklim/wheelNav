@@ -10,7 +10,7 @@ const HistoryDatePage = () => (
     radius={WHEEL_NAV_CONSTANTS.RADIUS}
     initialAngle={WHEEL_NAV_CONSTANTS.INITIAL_ANGLE}
     intervals={WHEEL_NAV_CONSTANTS.INTERVALS}
-    customPoint={PointImage}
+    customPoint={PointDot}
   />
 );
 

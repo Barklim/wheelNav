@@ -1,8 +1,11 @@
 $circle-border-color: #d0d5e0;
 $circle-border: 1px solid $circle-border-color;;
-$circle-margin: 40px auto;
+$circle-margin: 0;
 
 $point-width: 40px;
 $point-height: 40px;
 $point-label-margin-left: 8px;
-$point-label-font-size: 14px; 
+$point-label-font-size: 14px;  
+
+$interval-text-left: #5D5FEF;
+$interval-text-right: #EF5DA8;

@@ -5,11 +5,19 @@ import { Point } from "../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 import WheelNav from "./WheelNav";
 import Intervals from "../Intervals/Intervals";
+import styles from "./WheelNav.module.scss";
 
-const { RADIUS, DURATION, INTERVALS } = WHEEL_NAV_CONSTANTS;
+const { DURATION, RADIUS, INITIAL_ANGLE, INTERVALS } = WHEEL_NAV_CONSTANTS;
 
-const WheelNavWrapper = ({ initialPoints, intervals = INTERVALS, radius = RADIUS, duration = DURATION}: WheelNavWrapperProps) => {
-  const [points, setPoints] = useState<Point[]>(initialPoints);
+const WheelNavWrapper = ({
+  initialPoints,
+  intervals = INTERVALS,
+  duration = DURATION,
+  radius = RADIUS,
+  initialAngle = INITIAL_ANGLE,
+}: WheelNavWrapperProps) => {
+  const [points, setPoints] = useState<Point[]>(rotate(initialPoints, -1));
+  const [activeItem, setActiveItem] = useState<number>(1);
   const orbitRef = useRef<OrbitRef>(null);
   const rotationStepRef = useRef<number>(1);
 
@@ -27,30 +35,46 @@ const WheelNavWrapper = ({ initialPoints, intervals = INTERVALS, radius = RADIUS
   const handleRotate = (step: number) => {
     rotationStepRef.current = step;
     orbitRef.current?.rotate(step);
+
+    const rotatedPoints = rotate(points, step);
+    const newActiveItem = rotatedPoints[rotatedPoints.length - 1].id;
+    setActiveItem(Number(newActiveItem));
   };
 
   const handlePointClick = (clickedId: string) => {
+    setActiveItem(Number(clickedId));
+
     const rotationStepsToActive = getRotationStepsToActive(points, clickedId);
 
-    if (rotationStepsToActive !== 0 && rotationStepsToActive !== points.length) {
+    if (
+      rotationStepsToActive !== 0 &&
+      rotationStepsToActive !== points.length
+    ) {
       handleRotate(rotationStepsToActive);
     }
   };
 
   return (
-    <div>
-      <button onClick={() => handleRotate(-1)}>Left</button>
-      <button onClick={() => handleRotate(1)}>Right</button>
-
-      <Intervals intervals={intervals} activeItem={0} duration={duration} />
+    <div className={styles.wrapper}>
+      <Intervals
+        intervals={intervals}
+        activeItem={activeItem}
+        duration={duration}
+        radius={radius}
+      />
       <WheelNav
         ref={orbitRef}
         points={points}
         onRotateComplete={handleRotateComplete}
         onPointClick={handlePointClick}
-        radius={radius}
         duration={duration}
+        radius={radius}
+        initialAngle={initialAngle}
       />
+      <div style={{display: 'flex', flexDirection: 'row' }}>
+        <button onClick={() => handleRotate(1)}>Left</button>
+        <button onClick={() => handleRotate(-1)}>Right</button>
+      </div>
     </div>
   );
 };

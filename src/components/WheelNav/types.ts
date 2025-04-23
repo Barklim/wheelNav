@@ -9,9 +9,9 @@ export interface WheelNavProps {
   points: Point[];
   onRotateComplete: (pointsRef: PointRef) => void;
   onPointClick: (clickedId: string) => void;
-  initialAngle?: number;
-  radius: number;
   duration: number;
+  radius: number;
+  initialAngle: number;
 }
 
 export interface OrbitRef {
@@ -20,7 +20,8 @@ export interface OrbitRef {
 
 export interface WheelNavWrapperProps {
   initialPoints: Point[];
-  radius?: number;
   duration?: number;
+  radius?: number;
+  initialAngle?: number;
   intervals?: TInterval;
 } 

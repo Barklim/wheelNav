@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { IntervalProps } from "./types";
+import styles from "./Intervals.module.scss";
 
-const Intervals = ({ intervals, activeItem, duration }: IntervalProps) => {
+const Intervals = ({ intervals, activeItem, duration, radius}: IntervalProps) => {
     if (!intervals) {return null}
 
-    const [startInterval, setStartInterval] = React.useState({ value: intervals[1]?.start ?? 2000 })
-    const [endInterval, setEndInterval] = React.useState({ value: intervals[1]?.end ?? 2000 })
+    const [startInterval, setStartInterval] = React.useState({ value: intervals[0]?.start ?? 2000 })
+    const [endInterval, setEndInterval] = React.useState({ value: intervals[0]?.end ?? 2000 })
 
     useEffect(() => {
         const target = { value: startInterval.value };
-        if (intervals && intervals[activeItem + 1]) {
-            const startPosition = intervals[activeItem + 1].start
+        if (intervals && intervals[activeItem]) {
+            const startPosition = intervals[activeItem].start
             gsap.to(target, {
                 duration: duration*1,
                 value: startPosition,
@@ -26,8 +27,8 @@ const Intervals = ({ intervals, activeItem, duration }: IntervalProps) => {
 
     useEffect(() => {
         const target = { value: endInterval.value };
-        if (intervals && intervals[activeItem + 1]) {
-            const endPosition = intervals[activeItem + 1].end
+        if (intervals && intervals[activeItem]) {
+            const endPosition = intervals[activeItem].end
             gsap.to(target, {
                 duration: duration*1,
                 value: endPosition,
@@ -41,7 +42,10 @@ const Intervals = ({ intervals, activeItem, duration }: IntervalProps) => {
     }, [activeItem]);
 
     return (
-        <div>{startInterval.value} - {endInterval.value}</div>
+        <div className={styles.intervals} style={{top: radius, position: 'relative', fontSize: `${radius - 65}px`}}>
+            <span className={styles.intervals__left}>{startInterval.value}</span>
+            <span className={styles.intervals__right}>{endInterval.value}</span>
+        </div>
     )
 }
 

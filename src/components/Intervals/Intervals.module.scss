@@ -1,0 +1,18 @@
+@use '../../shared/constants/styles' as *;
+
+.intervals {
+  height: 0;
+  display: flex;
+  gap: 78px;
+  align-items: center;
+  font-weight: 700;
+  user-select: none;
+
+  &__left {
+    color: $interval-text-left;
+  }
+
+  &__right {
+    color: $interval-text-right;
+  }
+}

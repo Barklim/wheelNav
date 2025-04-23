@@ -11,4 +11,5 @@ export type IntervalProps = {
     intervals: TInterval;
     activeItem: number;
     duration: number;
+    radius: number;
 };

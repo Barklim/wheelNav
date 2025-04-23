@@ -1,5 +1,6 @@
 # Todo.md
 
+- button disabling time prop for duration + 0.1ms
 - LS for points position
 - useGsap
 - Storybook with example

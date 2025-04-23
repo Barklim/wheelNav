@@ -26,8 +26,9 @@ export const INTERVALS_EL6 = {
 };
 
 export const WHEEL_NAV_CONSTANTS = {
-  RADIUS: 265,
   DURATION: 0.5,
+  RADIUS: 265,
+  INITIAL_ANGLE: 0,
   POINTS: [
     { id: "1", src: "https://i.pravatar.cc/80?img=1", title: 'Tехнологии' },
     { id: "2", src: "https://i.pravatar.cc/80?img=2", title: 'Кино' },

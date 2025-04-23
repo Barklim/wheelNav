@@ -5,8 +5,9 @@ import "./main.scss";
 const App = () => (
   <WheelNavWrapper 
     initialPoints={WHEEL_NAV_CONSTANTS.POINTS}
-    radius={WHEEL_NAV_CONSTANTS.RADIUS}
     duration={WHEEL_NAV_CONSTANTS.DURATION}
+    radius={WHEEL_NAV_CONSTANTS.RADIUS}
+    initialAngle={WHEEL_NAV_CONSTANTS.INITIAL_ANGLE}
     intervals={WHEEL_NAV_CONSTANTS.INTERVALS}
   />
 );

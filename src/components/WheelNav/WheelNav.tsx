@@ -9,7 +9,7 @@ import styles from "./WheelNav.module.scss";
 gsap.registerPlugin(MotionPathPlugin);
 
 const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
-  ({ points, onRotateComplete, onPointClick, initialAngle = 0, radius, duration }, ref) => {
+  ({ points, onRotateComplete, onPointClick, initialAngle, radius, duration }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
     const isRotatingRef = useRef<boolean>(false);

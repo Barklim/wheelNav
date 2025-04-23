@@ -8,6 +8,7 @@
 - LS for points position
 - useGsap
 - absolute imports
+- Prepare for npm module export
 - Storybook with example
 - Tests
 - Linting

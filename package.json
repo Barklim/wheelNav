@@ -4,10 +4,12 @@
   "homepage": "https://Barklim.github.io/wheelNav",
   "scripts": {
     "dev": "webpack serve",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "deploy-storybook": "storybook build && gh-pages -d storybook-static"
+    "deploy-storybook": "storybook build && gh-pages -d storybook-static",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",

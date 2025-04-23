@@ -31,4 +31,5 @@ export interface WheelNavWrapperProps {
   initialAngle?: number;
   customPoint?: PointImgComponent | PointDotComponent;
   crossLines?: CrossLinesComponent;
+  onActiveItemChange?: (activeItem: number) => void;
 } 

@@ -1,6 +1,31 @@
+$font-family-main: consolas, "Times New Roman", serif;
+
+$font-size-xs: 10px;
+$font-line-xs: 16px;
+$font-xs: "#{$font-size-xs}/#{$font-line-xs} #{$font-family-main}";
+
+// s
+$font-size-s: 12px;
+$font-line-s: 20px;
+$font-s: "#{$font-size-s}/#{$font-line-s} #{$font-family-main}";
+
+// m
+$font-size-m: 16px;
+$font-line-m: 24px;
+$font-m: "#{$font-size-m}/#{$font-line-m} #{$font-family-main}";
+
+// l
+$font-size-l: 20px;
+$font-line-l: 26px;
+$font-l: "#{$font-size-l}/#{$font-line-l} #{$font-family-main}";
+
+// xl
+$font-size-xl: 56px;
+$font-line-xl: 64px;
+$font-xl: "#{$font-size-xl}/#{$font-line-xl} #{$font-family-main}";
+
 $bg-color: #F4F5F9;
 $text-color: #42567A;
-$big-text: 20px;
 
 $circle-border-color: #d0d5e0;
 $circle-border: 1px solid $circle-border-color;
@@ -8,11 +33,12 @@ $circle-margin: 0;
 
 $point-width: 56px;
 $point-height: 56px;
-$point-label-left: $big-text;
-$point-font-size: $big-text;
+$point-label-left: $font-size-l;
+$point-font-size: $font-size-l;
 
 $nav-button-size: 50px;
 $nav-button-color: #9ba5ba;
 
 $interval-text-left: #5D5FEF;
 $interval-text-right: #EF5DA8;
+$history-pre-title: linear-gradient(186deg, #3877EE 0%, #EF5DA8 100%);

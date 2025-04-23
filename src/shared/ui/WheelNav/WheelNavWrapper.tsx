@@ -4,10 +4,11 @@ import { PointRef, OrbitRef, WheelNavWrapperProps } from "./types";
 import { Point } from "../../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../constants/wheelNav";
 import { Intervals } from "../Intervals";
+import { WheelNavButtons } from "../WheelNavButtons";
+import { CrossLines as CrossLinesComponent } from "../CrossLines";
+import { Title } from "../Title";
 import WheelNav from "./WheelNav";
 import styles from "./WheelNav.module.scss";
-import { CrossLines as CrossLinesComponent } from "../CrossLines";
-import { WheelNavButtons } from "../WheelNavButtons";
 
 const { DURATION, RADIUS, INITIAL_ANGLE, INTERVALS } = WHEEL_NAV_CONSTANTS;
 
@@ -18,7 +19,8 @@ const WheelNavWrapper = ({
   radius = RADIUS,
   initialAngle = INITIAL_ANGLE,
   customPoint,
-  crossLines: CrossLines = CrossLinesComponent 
+  crossLines: CrossLines = CrossLinesComponent,
+  onActiveItemChange,
 }: WheelNavWrapperProps) => {
   const [points, setPoints] = useState<Point[]>(rotate(initialPoints, -1));
   const [activeItem, setActiveItem] = useState<number>(1);
@@ -43,10 +45,12 @@ const WheelNavWrapper = ({
     const rotatedPoints = rotate(points, step);
     const newActiveItem = rotatedPoints[rotatedPoints.length - 1].id;
     setActiveItem(Number(newActiveItem));
+    onActiveItemChange?.(Number(newActiveItem));
   };
 
   const handlePointClick = (clickedId: string) => {
     setActiveItem(Number(clickedId));
+    onActiveItemChange?.(Number(clickedId));
 
     const rotationStepsToActive = getRotationStepsToActive(points, clickedId);
 
@@ -60,6 +64,7 @@ const WheelNavWrapper = ({
 
   return (
     <div className={styles.wrapper}>
+      <Title />
       <Intervals
         intervals={intervals}
         activeItem={activeItem}
@@ -78,7 +83,11 @@ const WheelNavWrapper = ({
         initialAngle={initialAngle}
         customPoint={customPoint}
       />
-      <WheelNavButtons activeItem={activeItem} points={points} handleRotate={handleRotate} />
+      <WheelNavButtons
+        activeItem={activeItem}
+        points={points}
+        handleRotate={handleRotate}
+      />
     </div>
   );
 };

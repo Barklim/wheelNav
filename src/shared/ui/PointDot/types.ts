@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Point } from "../../../types/wheelNav";
 
-export interface PointImgProps {
+export interface PointDotProps {
   point: Point;
 }
 
-export type PointImgComponent = FC<PointImgProps>;
+export type PointDotComponent = FC<PointDotProps>;
 
 export interface PointDotProps {
   point: Point;

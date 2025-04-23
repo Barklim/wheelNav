@@ -9,5 +9,5 @@ export type PointImgComponent = FC<PointImgProps>;
 
 export interface PointIamgeProps {
   point: Point;
-  isActive?: boolean;
+  isActive: boolean;
 }

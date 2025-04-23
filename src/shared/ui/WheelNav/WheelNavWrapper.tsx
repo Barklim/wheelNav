@@ -68,6 +68,7 @@ const WheelNavWrapper = ({
         points={points}
         onRotateComplete={handleRotateComplete}
         onPointClick={handlePointClick}
+        activeItem={activeItem}
         duration={duration}
         radius={radius}
         initialAngle={initialAngle}

@@ -14,9 +14,10 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
     points, 
     onRotateComplete, 
     onPointClick, 
-    initialAngle, 
-    radius, 
+    activeItem,
     duration,
+    radius, 
+    initialAngle, 
     customPoint: CustomPoint = PointImage 
   }, ref) => {
     const pointsRef = useRef<PointRef>({});
@@ -139,7 +140,7 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
                   }
                 }}
               >
-                <CustomPoint point={point} isActive={isActive} />
+                <CustomPoint point={point} isActive={Number(point.id) == activeItem} />
                 <span className={styles.label}>{point.title}</span>
               </div>
             );

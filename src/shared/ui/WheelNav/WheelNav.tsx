@@ -139,7 +139,7 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
                   }
                 }}
               >
-                <CustomPoint point={point} />
+                <CustomPoint point={point} isActive={isActive} />
                 <span className={styles.label}>{point.title}</span>
               </div>
             );

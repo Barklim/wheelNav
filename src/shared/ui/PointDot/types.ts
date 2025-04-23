@@ -7,6 +7,7 @@ export interface PointImgProps {
 
 export type PointImgComponent = FC<PointImgProps>;
 
-export type PointDotProps = {
+export interface PointDotProps {
   point: Point;
+  isActive?: boolean;
 }

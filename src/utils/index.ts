@@ -1,6 +1,6 @@
-import { Image } from "../types/wheelNav";
+import { Point } from "../types/wheelNav";
 
-type ImageItem = {
+type PointItem = {
   id: string | number;
   [key: string]: any;
 };
@@ -23,21 +23,21 @@ export const rotate = function <T>(arr: T[], k: number): T[] {
   return rotateRight(arr, rightKSteps);
 };
 
-export const getStepAngle = (images: Image[]): number => {
-  return 360 / images.length;
+export const getStepAngle = (poins: Point[]): number => {
+  return 360 / poins.length;
 }; 
 
 export const getRotationStepsToActive = (
-  images: ImageItem[],
+  poins: PointItem[],
   clickedId: string | number
 ): number => {
-  for (let step = 1; step <= images.length; step++) {
-    const rotatedClockwise = rotate([...images], step);
+  for (let step = 1; step <= poins.length; step++) {
+    const rotatedClockwise = rotate([...poins], step);
     if (rotatedClockwise[rotatedClockwise.length - 1].id === clickedId) {
       return step;
     }
 
-    const rotatedCounterClockwise = rotate([...images], -step);
+    const rotatedCounterClockwise = rotate([...poins], -step);
     if (
       rotatedCounterClockwise[rotatedCounterClockwise.length - 1].id ===
       clickedId

@@ -1,6 +1,7 @@
-export interface Image {
+export interface Point {
   id: string;
   src: string;
+  title?: string
 }
 
 export interface PointRef {
@@ -8,11 +9,12 @@ export interface PointRef {
 }
 
 export interface WheelNavProps {
-  images: Image[];
+  points: Point[];
   onRotateComplete: (pointsRef: PointRef) => void;
   onPointClick: (clickedId: string) => void;
   initialAngle?: number;
-  radius?: number;
+  radius: number;
+  duration: number;
 }
 
 export interface OrbitRef {
@@ -20,6 +22,7 @@ export interface OrbitRef {
 }
 
 export interface WheelNavWrapperProps {
-  initialImages: Image[];
+  initialPoints: Point[];
   radius?: number;
+  duration?: number;
 } 

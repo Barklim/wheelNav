@@ -2,16 +2,13 @@ import { useRef, useImperativeHandle, forwardRef } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../utils";
-import { WheelNavProps, OrbitRef, PointRef, Image } from "../../types/wheelNav";
-import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import { WheelNavProps, OrbitRef, PointRef, Point } from "../../types/wheelNav";
 import styles from "./WheelNav.module.scss";
 
 gsap.registerPlugin(MotionPathPlugin);
 
-const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
-
 const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
-  ({ images, onRotateComplete, onPointClick, initialAngle = 0, radius = RADIUS }, ref) => {
+  ({ points, onRotateComplete, onPointClick, initialAngle = 0, radius, duration }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
     const isRotatingRef = useRef<boolean>(false);
@@ -33,7 +30,7 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
         tls.current.forEach((tl) => tl.kill());
         tls.current = [];
 
-        const stepAngle = getStepAngle(images);
+        const stepAngle = getStepAngle(points);
         const degrees = Math.abs(step) * stepAngle;
         const direction = Math.sign(step);
 
@@ -41,18 +38,18 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
           if (point) {
             point.classList.remove("active");
             gsap.to(point, {
-              duration: DURATION,
+              duration: duration,
               ease: "power1.out",
               css: { "--after-opacity": 0 },
             });
           }
         });
 
-        images.forEach((img: Image, i: number) => {
-          const point = pointsRef.current[img.id];
+        points.forEach((p: Point, i: number) => {
+          const point = pointsRef.current[p.id];
           if (!point) return;
 
-          const startAngle = ((360 / images.length) * i + initialAngle) % 360;
+          const startAngle = ((360 / points.length) * i + initialAngle) % 360;
           const path = Array.from({ length: degrees }, (_, d) => {
             const a = ((startAngle + d * direction) * Math.PI) / 180;
             return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
@@ -66,12 +63,12 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
           });
 
           const tl = gsap.to(point, {
-            duration: DURATION,
+            duration: duration,
             ease: "none",
             motionPath: { path, autoRotate: false },
             onComplete: () => {
               completed++;
-              if (completed === images.length) {
+              if (completed === points.length) {
                 onRotateComplete(pointsRef.current);
 
                 const points = Object.values(pointsRef.current);
@@ -109,34 +106,31 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
           height: `${radius*2}px`
         } : undefined}
       >
-          {images.map((img: Image, i: number) => {
-            const isActive = i === images.length - 1;
-            const angle = ((360 / images.length) * i + initialAngle) % 360;
+          {points.map((point: Point, i: number) => {
+            const isActive = i === points.length - 1;
+            const angle = ((360 / points.length) * i + initialAngle) % 360;
             const rad = (angle * Math.PI) / 180;
             const x = Math.cos(rad) * radius;
             const y = Math.sin(rad) * radius;
 
             return (
               <div
-                key={img.id}
+                key={point.id}
                 className={`${styles.point} ${isActive ? styles.active : ""}`}
                 ref={(el) => {
-                  if (el) pointsRef.current[img.id] = el;
+                  if (el) pointsRef.current[point.id] = el;
                 }}
                 style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
                   transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
                 }}
                 onClick={() => {
                   if (!isRotatingRef.current && !isActiveAnimationRef.current) {
-                    onPointClick?.(img.id);
+                    onPointClick?.(point.id);
                   }
                 }}
               >
-                <img src={img.src} alt={`Logo ${img.id}`} />
-                <span className={styles.label}>{String(img.src).slice(20, 34)}</span>
+                <img src={point.src} alt={`Logo ${point.id}`} />
+                <span className={styles.label}>{point.title}</span>
               </div>
             );
           })}

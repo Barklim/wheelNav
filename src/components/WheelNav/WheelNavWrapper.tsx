@@ -1,21 +1,21 @@
 import { useRef, useState } from "react";
 import { rotate, getRotationStepsToActive } from "../../utils";
-import { Image, PointRef, OrbitRef, WheelNavWrapperProps } from "../../types/wheelNav";
+import { Point, PointRef, OrbitRef, WheelNavWrapperProps } from "../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 import WheelNav from "./WheelNav";
 
-const { RADIUS } = WHEEL_NAV_CONSTANTS;
+const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
 
-const WheelNavWrapper = ({ initialImages, radius = RADIUS }: WheelNavWrapperProps) => {
-  const [images, setImages] = useState<Image[]>(initialImages);
+const WheelNavWrapper = ({ initialPoints, radius = RADIUS, duration = DURATION }: WheelNavWrapperProps) => {
+  const [points, setPoints] = useState<Point[]>(initialPoints);
   const orbitRef = useRef<OrbitRef>(null);
   const rotationStepRef = useRef<number>(1);
 
   const handleRotateComplete = (pointsRef: PointRef) => {
-    const newImages = rotate(images, rotationStepRef.current);
-    setImages(newImages);
+    const newPoints = rotate(points, rotationStepRef.current);
+    setPoints(newPoints);
 
-    const newActive = newImages[newImages.length - 1];
+    const newActive = newPoints[newPoints.length - 1];
     const activePoint = pointsRef[newActive.id];
     if (activePoint) {
       activePoint.classList.add("active");
@@ -28,9 +28,9 @@ const WheelNavWrapper = ({ initialImages, radius = RADIUS }: WheelNavWrapperProp
   };
 
   const handlePointClick = (clickedId: string) => {
-    const rotationStepsToActive = getRotationStepsToActive(images, clickedId);
+    const rotationStepsToActive = getRotationStepsToActive(points, clickedId);
 
-    if (rotationStepsToActive !== 0 && rotationStepsToActive !== images.length) {
+    if (rotationStepsToActive !== 0 && rotationStepsToActive !== points.length) {
       handleRotate(rotationStepsToActive);
     }
   };
@@ -42,10 +42,11 @@ const WheelNavWrapper = ({ initialImages, radius = RADIUS }: WheelNavWrapperProp
 
       <WheelNav
         ref={orbitRef}
-        images={images}
+        points={points}
         onRotateComplete={handleRotateComplete}
         onPointClick={handlePointClick}
         radius={radius}
+        duration={duration}
       />
     </div>
   );

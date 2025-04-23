@@ -1,8 +1,6 @@
 @use '../../shared/constants/styles' as *;
 
 .circle {
-  width: $circle-width;
-  height: $circle-height;
   border: $circle-border;
   border-radius: 50%;
   position: relative;
@@ -42,7 +40,7 @@
   font-size: $point-label-font-size;
   white-space: nowrap;
   opacity: var(--after-opacity);
-  transition: opacity 0.5s ease-out;
+  transition: opacity 0.01s ease-out;
 }
 
 .label {

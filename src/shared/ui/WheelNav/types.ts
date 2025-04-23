@@ -17,6 +17,7 @@ export interface WheelNavProps {
   radius: number;
   initialAngle: number;
   customPoint?: PointImgComponent | PointDotComponent;
+  onAnimationComplete?: () => void;
 }
 
 export interface OrbitRef {

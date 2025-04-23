@@ -19,7 +19,8 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
     duration,
     radius, 
     initialAngle,
-    customPoint: CustomPoint = PointDot 
+    customPoint: CustomPoint = PointDot,
+    onAnimationComplete
   }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
@@ -31,6 +32,7 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
       isRotatingRef.current = false;
       isActiveAnimationRef.current = false;
       activePointRef.current = null;
+      onAnimationComplete?.();
     };
 
     useImperativeHandle(ref, () => ({

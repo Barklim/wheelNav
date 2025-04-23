@@ -24,8 +24,13 @@ const WheelNavWrapper = ({
 }: WheelNavWrapperProps) => {
   const [points, setPoints] = useState<Point[]>(rotate(initialPoints, -1));
   const [activeItem, setActiveItem] = useState<number>(1);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const orbitRef = useRef<OrbitRef>(null);
   const rotationStepRef = useRef<number>(1);
+
+  const handleAnimationComplete = () => {
+    setIsAnimating(false);
+  };
 
   const handleRotateComplete = (pointsRef: PointRef) => {
     const newPoints = rotate(points, rotationStepRef.current);
@@ -39,6 +44,7 @@ const WheelNavWrapper = ({
   };
 
   const handleRotate = (step: number) => {
+    setIsAnimating(true);
     rotationStepRef.current = step;
     orbitRef.current?.rotate(step);
 
@@ -49,6 +55,8 @@ const WheelNavWrapper = ({
   };
 
   const handlePointClick = (clickedId: string) => {
+    if (isAnimating) return;
+    
     setActiveItem(Number(clickedId));
     onActiveItemChange?.(Number(clickedId));
 
@@ -82,11 +90,13 @@ const WheelNavWrapper = ({
         radius={radius}
         initialAngle={initialAngle}
         customPoint={customPoint}
+        onAnimationComplete={handleAnimationComplete}
       />
       <WheelNavButtons
         activeItem={activeItem}
         points={points}
         handleRotate={handleRotate}
+        disabled={isAnimating}
       />
     </div>
   );

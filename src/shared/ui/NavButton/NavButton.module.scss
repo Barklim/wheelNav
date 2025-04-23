@@ -7,9 +7,10 @@
   border: 1px solid $nav-button-color;
   background: $bg-color;
   cursor: pointer;
+  color: $text-color;
   font-size: 24px;
   font-weight: bold;
-  color: $text-color;
+  user-select: none;
   transition: all 0.2s ease;
   
   &:hover {
@@ -31,5 +32,9 @@
 
   &:hover {
     background: inherit;
+  }
+
+  &:active {
+    transform: inherit;
   }
 }

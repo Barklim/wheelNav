@@ -4,13 +4,14 @@ import styles from './NavButton.module.scss';
 interface NavButtonProps {
   direction: 'left' | 'right';
   disabled?: boolean;
+  visuallyDisabled?: boolean;
   onClick: () => void;
 }
 
-export const NavButton: React.FC<NavButtonProps> = ({ direction, disabled, onClick }) => {
+export const NavButton: React.FC<NavButtonProps> = ({ direction, disabled, visuallyDisabled, onClick }) => {
   return (
     <button 
-      className={`${styles.navButton} ${disabled ? styles.disabled : ""}`}
+      className={`${styles.navButton} ${visuallyDisabled ? styles.disabled : ""}`}
       aria-label={`Navigate ${direction}`}
       disabled={disabled}
       onClick={onClick}

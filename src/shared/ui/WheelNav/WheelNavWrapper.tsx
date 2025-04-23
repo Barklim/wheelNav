@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { rotate, getRotationStepsToActive } from "../../utils";
+import { rotate, getRotationStepsToActive } from "../../../lib";
 import { PointRef, OrbitRef, WheelNavWrapperProps } from "./types";
-import { Point } from "../../types/wheelNav";
-import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import { Point } from "../../../types/wheelNav";
+import { WHEEL_NAV_CONSTANTS } from "../../constants/wheelNav";
 import WheelNav from "./WheelNav";
 import Intervals from "../Intervals/Intervals";
 import styles from "./WheelNav.module.scss";

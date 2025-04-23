@@ -1,4 +1,4 @@
-import { Point } from "../../types/wheelNav";
+import { Point } from "../../../types/wheelNav";
 import { TInterval } from "../Intervals/types";
 
 export interface PointRef {

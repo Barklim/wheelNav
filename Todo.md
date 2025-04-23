@@ -3,6 +3,7 @@
 - button disabling time prop for duration + 0.1ms
 - LS for points position
 - useGsap
+- absolute imports
 - Storybook with example
 - Tests
 - Linting

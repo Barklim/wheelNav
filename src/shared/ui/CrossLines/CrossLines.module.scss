@@ -1,0 +1,28 @@
+@use '../../constants/styles.scss' as *;
+
+.horizontalLine,
+.verticalLine {
+  position: absolute;
+  background-color: #42567A;
+  opacity: 0.1;
+}
+
+.horizontalLine {
+  height: 1px;
+  top: calc(50% - 0px);
+
+  &_full {
+    width: 150vw !important;
+    left: -50vw !important;
+  }
+}
+
+.verticalLine {
+  width: 1px;
+  left: calc(50% + 0px);
+
+  &_full {
+    height: 150vh !important;
+    top: -50vh !important;
+  }
+}

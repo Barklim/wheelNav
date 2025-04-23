@@ -1,0 +1,31 @@
+@use "../../constants/styles.scss" as *;
+
+.historyDateWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 80px;
+}
+
+.fullScreenWrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.slider {
+  background-color: grey;
+  height: 158px;
+  width: 100%;
+}
+
+.someBlock {
+  background-color: grey;
+  height: 2000px;
+  width: 200px;
+}

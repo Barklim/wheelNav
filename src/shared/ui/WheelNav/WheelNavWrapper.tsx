@@ -3,10 +3,11 @@ import { rotate, getRotationStepsToActive } from "../../../lib";
 import { PointRef, OrbitRef, WheelNavWrapperProps } from "./types";
 import { Point } from "../../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../constants/wheelNav";
-import { NavButton } from "../NavButton";
 import { Intervals } from "../Intervals";
 import WheelNav from "./WheelNav";
 import styles from "./WheelNav.module.scss";
+import { CrossLines as CrossLinesComponent } from "../CrossLines";
+import { WheelNavButtons } from "../WheelNavButtons";
 
 const { DURATION, RADIUS, INITIAL_ANGLE, INTERVALS } = WHEEL_NAV_CONSTANTS;
 
@@ -17,6 +18,7 @@ const WheelNavWrapper = ({
   radius = RADIUS,
   initialAngle = INITIAL_ANGLE,
   customPoint,
+  crossLines: CrossLines = CrossLinesComponent 
 }: WheelNavWrapperProps) => {
   const [points, setPoints] = useState<Point[]>(rotate(initialPoints, -1));
   const [activeItem, setActiveItem] = useState<number>(1);
@@ -64,6 +66,7 @@ const WheelNavWrapper = ({
         duration={duration}
         radius={radius}
       />
+      <CrossLines radius={radius} fullMode />
       <WheelNav
         ref={orbitRef}
         points={points}
@@ -75,13 +78,7 @@ const WheelNavWrapper = ({
         initialAngle={initialAngle}
         customPoint={customPoint}
       />
-      <div className={styles.buttonsWrapper}>
-        <p className={styles.buttonsTitle}>{`0${activeItem}/0${points.length}`}</p>
-        <div className={styles.buttons}>
-          <NavButton direction="left" disabled={activeItem === 1} onClick={() => handleRotate(1)} />
-          <NavButton direction="right" disabled={activeItem === points.length} onClick={() => handleRotate(-1)} />
-        </div>
-      </div>
+      <WheelNavButtons activeItem={activeItem} points={points} handleRotate={handleRotate} />
     </div>
   );
 };

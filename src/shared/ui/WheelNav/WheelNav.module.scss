@@ -5,24 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.buttonsWrapper {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.buttonsTitle {
-  margin: 0 0 12px;
-  font-size: 14px;
-  color: $text-color;
-}
-
-.buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 }
 
 .circle {

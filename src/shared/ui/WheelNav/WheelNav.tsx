@@ -4,7 +4,8 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../../lib";
 import { WheelNavProps, OrbitRef, PointRef } from "./types";
 import { Point } from "../../../types/wheelNav";
-import { PointImage } from "../PointImage/PointImage";
+import { PointImage } from "../PointImage";
+import { PointDot } from "../PointDot";
 import styles from "./WheelNav.module.scss";
 
 gsap.registerPlugin(MotionPathPlugin);
@@ -17,8 +18,8 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
     activeItem,
     duration,
     radius, 
-    initialAngle, 
-    customPoint: CustomPoint = PointImage 
+    initialAngle,
+    customPoint: CustomPoint = PointDot 
   }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);

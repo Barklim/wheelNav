@@ -2,6 +2,7 @@ import { Point } from "../../../types/wheelNav";
 import { TInterval } from "../Intervals/types";
 import { PointImgComponent } from "../PointImage/types";
 import { PointDotComponent } from "../PointDot/types";
+import { CrossLinesComponent } from "../CrossLines";
 
 export interface PointRef {
   [key: string]: HTMLElement;
@@ -29,4 +30,5 @@ export interface WheelNavWrapperProps {
   radius?: number;
   initialAngle?: number;
   customPoint?: PointImgComponent | PointDotComponent;
+  crossLines?: CrossLinesComponent;
 } 

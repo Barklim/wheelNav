@@ -1,0 +1,20 @@
+@use '../../constants/styles.scss' as *;
+
+.poinDotWrapper {
+  border: 1px solid rgba(48, 62, 88, .5);
+  background: $bg-color;
+  border-radius: 50%;
+}
+
+.pointDot {
+  z-index: 1000000;
+  color: #42567a;
+  font-size: $point-font-size;
+  width: $point-width;
+  height: $point-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity .2s;
+}

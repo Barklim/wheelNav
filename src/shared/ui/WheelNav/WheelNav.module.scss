@@ -34,18 +34,7 @@
   --after-opacity: 1;
 }
 
-.point img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-
-  width: $point-width;
-  height: $point-height;
-}
-
 .point .label {
-  margin-left: $point-label-margin-left;
-  font-size: $point-label-font-size;
   white-space: nowrap;
   opacity: var(--after-opacity);
   transition: opacity 0.01s ease-out;
@@ -53,4 +42,11 @@
 
 .label {
   width: 0;
+  position: relative;
+  left: $point-label-left;
+
+  color: $text-color;
+  font-size: $point-font-size;
+  line-height: 30px;
+  font-weight: bold;
 }

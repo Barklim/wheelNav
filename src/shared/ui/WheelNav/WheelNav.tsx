@@ -4,12 +4,21 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../../lib";
 import { WheelNavProps, OrbitRef, PointRef } from "./types";
 import { Point } from "../../../types/wheelNav";
+import { PointImage } from "../PointImage/PointImage";
 import styles from "./WheelNav.module.scss";
 
 gsap.registerPlugin(MotionPathPlugin);
 
 const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
-  ({ points, onRotateComplete, onPointClick, initialAngle, radius, duration }, ref) => {
+  ({ 
+    points, 
+    onRotateComplete, 
+    onPointClick, 
+    initialAngle, 
+    radius, 
+    duration,
+    customPoint: CustomPoint = PointImage 
+  }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
     const isRotatingRef = useRef<boolean>(false);
@@ -130,7 +139,7 @@ const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
                   }
                 }}
               >
-                <img src={point.src} alt={`Logo ${point.id}`} />
+                <CustomPoint point={point} />
                 <span className={styles.label}>{point.title}</span>
               </div>
             );

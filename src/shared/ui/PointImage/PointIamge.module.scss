@@ -1,0 +1,6 @@
+@use '../../constants/styles.scss' as *;
+
+.pointImg {
+  width: $point-width;
+  height: $point-height;
+}

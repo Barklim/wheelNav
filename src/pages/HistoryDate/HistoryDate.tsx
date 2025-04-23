@@ -1,5 +1,6 @@
 import { WheelNavWrapper } from "../../shared/ui/WheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import { PointDot } from "../../shared/ui/PointDot";
 
 const HistoryDatePage = () => (
   <WheelNavWrapper 
@@ -8,6 +9,7 @@ const HistoryDatePage = () => (
     radius={WHEEL_NAV_CONSTANTS.RADIUS}
     initialAngle={WHEEL_NAV_CONSTANTS.INITIAL_ANGLE}
     intervals={WHEEL_NAV_CONSTANTS.INTERVALS}
+    customPoint={PointDot}
   />
 );
 

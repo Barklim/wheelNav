@@ -15,6 +15,7 @@ const WheelNavWrapper = ({
   duration = DURATION,
   radius = RADIUS,
   initialAngle = INITIAL_ANGLE,
+  customPoint,
 }: WheelNavWrapperProps) => {
   const [points, setPoints] = useState<Point[]>(rotate(initialPoints, -1));
   const [activeItem, setActiveItem] = useState<number>(1);
@@ -70,6 +71,7 @@ const WheelNavWrapper = ({
         duration={duration}
         radius={radius}
         initialAngle={initialAngle}
+        customPoint={customPoint}
       />
       <div style={{display: 'flex', flexDirection: 'row' }}>
         <button onClick={() => handleRotate(1)}>Left</button>

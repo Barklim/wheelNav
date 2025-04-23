@@ -1,11 +1,15 @@
+$bg-color: #F4F5F9;
+$text-color: #42567A;
+$big-text: 20px;
+
 $circle-border-color: #d0d5e0;
-$circle-border: 1px solid $circle-border-color;;
+$circle-border: 1px solid $circle-border-color;
 $circle-margin: 0;
 
-$point-width: 40px;
-$point-height: 40px;
-$point-label-margin-left: 8px;
-$point-label-font-size: 14px;  
+$point-width: 56px;
+$point-height: 56px;
+$point-label-left: $big-text;
+$point-font-size: $big-text;  
 
 $interval-text-left: #5D5FEF;
 $interval-text-right: #EF5DA8;

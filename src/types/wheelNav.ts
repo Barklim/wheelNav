@@ -12,20 +12,14 @@ export interface WheelNavProps {
   onRotateComplete: (pointsRef: PointRef) => void;
   onPointClick: (clickedId: string) => void;
   initialAngle?: number;
-  circleSize?: {
-    width: string;
-    height: string;
-  };
+  radius?: number;
 }
 
-export interface TestRef {
+export interface OrbitRef {
   rotate: (step?: number) => void;
 }
 
 export interface WheelNavWrapperProps {
   initialImages: Image[];
-  circleSize?: {
-    width: string;
-    height: string;
-  };
+  radius?: number;
 } 

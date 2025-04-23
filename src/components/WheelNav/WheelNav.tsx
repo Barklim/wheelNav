@@ -2,15 +2,16 @@ import { useRef, useImperativeHandle, forwardRef } from "react";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { getStepAngle } from "../../utils";
-import { WheelNavProps, TestRef, PointRef, Image } from "../../types/wheelNav";
+import { WheelNavProps, OrbitRef, PointRef, Image } from "../../types/wheelNav";
 import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import styles from "./WheelNav.module.scss";
 
 gsap.registerPlugin(MotionPathPlugin);
 
 const { RADIUS, DURATION } = WHEEL_NAV_CONSTANTS;
 
-const WheelNav = forwardRef<TestRef, WheelNavProps>(
-  ({ images, onRotateComplete, onPointClick, initialAngle = 0, circleSize }, ref) => {
+const WheelNav = forwardRef<OrbitRef, WheelNavProps>(
+  ({ images, onRotateComplete, onPointClick, initialAngle = 0, radius = RADIUS }, ref) => {
     const pointsRef = useRef<PointRef>({});
     const tls = useRef<gsap.core.Tween[]>([]);
     const isRotatingRef = useRef<boolean>(false);
@@ -36,7 +37,6 @@ const WheelNav = forwardRef<TestRef, WheelNavProps>(
         const degrees = Math.abs(step) * stepAngle;
         const direction = Math.sign(step);
 
-        // Remove active class from all points
         Object.values(pointsRef.current).forEach(point => {
           if (point) {
             point.classList.remove("active");
@@ -55,13 +55,13 @@ const WheelNav = forwardRef<TestRef, WheelNavProps>(
           const startAngle = ((360 / images.length) * i + initialAngle) % 360;
           const path = Array.from({ length: degrees }, (_, d) => {
             const a = ((startAngle + d * direction) * Math.PI) / 180;
-            return { x: Math.cos(a) * RADIUS, y: Math.sin(a) * RADIUS };
+            return { x: Math.cos(a) * radius, y: Math.sin(a) * radius };
           });
 
           const startRad = (startAngle * Math.PI) / 180;
           gsap.set(point, {
-            x: Math.cos(startRad) * RADIUS,
-            y: Math.sin(startRad) * RADIUS,
+            x: Math.cos(startRad) * radius,
+            y: Math.sin(startRad) * radius,
             transform: "translate(-50%, -50%)",
           });
 
@@ -103,26 +103,23 @@ const WheelNav = forwardRef<TestRef, WheelNavProps>(
 
     return (
       <div 
-        className="circle" 
-        // // TODO: reove after::css 
-        // ?
-        style={circleSize ? {
-          width: circleSize.width,
-          height: circleSize.height
+        className={styles.circle}
+        style={radius ? {
+          width: `${radius*2}px`,
+          height: `${radius*2}px`
         } : undefined}
       >
-        <div className="logo-container">
           {images.map((img: Image, i: number) => {
             const isActive = i === images.length - 1;
             const angle = ((360 / images.length) * i + initialAngle) % 360;
             const rad = (angle * Math.PI) / 180;
-            const x = Math.cos(rad) * RADIUS;
-            const y = Math.sin(rad) * RADIUS;
+            const x = Math.cos(rad) * radius;
+            const y = Math.sin(rad) * radius;
 
             return (
               <div
                 key={img.id}
-                className={`point ${isActive ? "active" : ""}`}
+                className={`${styles.point} ${isActive ? styles.active : ""}`}
                 ref={(el) => {
                   if (el) pointsRef.current[img.id] = el;
                 }}
@@ -139,11 +136,10 @@ const WheelNav = forwardRef<TestRef, WheelNavProps>(
                 }}
               >
                 <img src={img.src} alt={`Logo ${img.id}`} />
-                <span className="label">{String(img.src).slice(20, 34)}</span>
+                <span className={styles.label}>{String(img.src).slice(20, 34)}</span>
               </div>
             );
           })}
-        </div>
       </div>
     );
   }

@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 import { rotate, getRotationStepsToActive } from "../../utils";
-import { Image, PointRef, TestRef, WheelNavWrapperProps } from "../../types/wheelNav";
+import { Image, PointRef, OrbitRef, WheelNavWrapperProps } from "../../types/wheelNav";
+import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
 import WheelNav from "./WheelNav";
 
-const WheelNavWrapper = ({ initialImages, circleSize }: WheelNavWrapperProps) => {
+const { RADIUS } = WHEEL_NAV_CONSTANTS;
+
+const WheelNavWrapper = ({ initialImages, radius = RADIUS }: WheelNavWrapperProps) => {
   const [images, setImages] = useState<Image[]>(initialImages);
-  const orbitRef = useRef<TestRef>(null);
+  const orbitRef = useRef<OrbitRef>(null);
   const rotationStepRef = useRef<number>(1);
 
   const handleRotateComplete = (pointsRef: PointRef) => {
@@ -42,7 +45,7 @@ const WheelNavWrapper = ({ initialImages, circleSize }: WheelNavWrapperProps) =>
         images={images}
         onRotateComplete={handleRotateComplete}
         onPointClick={handlePointClick}
-        circleSize={circleSize}
+        radius={radius}
       />
     </div>
   );

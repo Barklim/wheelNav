@@ -1,4 +1,4 @@
-export const INTERVALS_EL6 = {
+export const INTERVALS_EL = {
   1: {
       start: 1981,
       end: 1985,
@@ -23,6 +23,14 @@ export const INTERVALS_EL6 = {
       start: 2015,
       end: 2022,
   },
+  7: {
+    start: 2023,
+    end: 2028,
+  },
+  8: {
+    start: 2029,
+    end: 2031,
+  },
 };
 
 export const WHEEL_NAV_CONSTANTS = {
@@ -30,12 +38,14 @@ export const WHEEL_NAV_CONSTANTS = {
   RADIUS: 265,
   INITIAL_ANGLE: 0,
   POINTS: [
-    { id: "1", src: "https://i.pravatar.cc/80?img=1", title: 'Tехнологии' },
-    { id: "2", src: "https://i.pravatar.cc/80?img=2", title: 'Кино' },
-    { id: "3", src: "https://i.pravatar.cc/80?img=3", title: 'Литература' },
-    { id: "4", src: "https://i.pravatar.cc/80?img=4", title: 'Театр' },
-    { id: "5", src: "https://i.pravatar.cc/80?img=5", title: 'Спорт' },
-    { id: "6", src: "https://i.pravatar.cc/80?img=6", title: 'Наука' },
+    { id: "1", title: 'Tехнологии' },
+    { id: "2", title: 'Кино' },
+    { id: "3", title: 'Литература' },
+    { id: "4", title: 'Театр' },
+    { id: "5", title: 'Спорт' },
+    { id: "6", title: 'Наука' },
+    { id: "7", title: 'Музыка' },
+    { id: "8", title: 'Путешествия' },
   ],
-  INTERVALS: INTERVALS_EL6
+  INTERVALS: INTERVALS_EL
 }; 

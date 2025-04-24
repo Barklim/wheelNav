@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 export const PointImage = ({ point, isActive }: PointImgProps) => (
   <img 
-    src={point.src} 
+    src={`https://i.pravatar.cc/80?img=${point.id}`} 
     alt={`Logo ${point.id}`} 
     className={classNames(styles.pointImg, {
       [styles.active]: isActive

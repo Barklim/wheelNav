@@ -1,4 +1,5 @@
 @use './shared/constants/styles.scss' as *;
+@use './fonts.scss';
 
 $font-size: 1rem;
 $font-color: lch(28 99 35);
@@ -9,7 +10,7 @@ html {
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'PT Sans', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

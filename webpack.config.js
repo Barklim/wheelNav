@@ -11,9 +11,13 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: '/'
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      '@fonts': path.resolve(__dirname, 'src/shared/assets/fonts')
+    }
   },
   module: {
     rules: [
@@ -34,13 +38,38 @@ module.exports = {
               },
             },
           },
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src')]
+              }
+            }
+          }
         ],
       },
       {
         test: /\.s[ac]ss$/i,
         exclude: /\.module\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src')]
+              }
+            }
+          }
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]'
+        }
       },
     ],
   },

@@ -1,18 +1,44 @@
 @use '../../constants/styles.scss' as *;
 
-.intervals {
+.intervalsInner, .intervalsOuter {
   height: 0;
   display: flex;
-  gap: 78px;
   align-items: center;
   font-weight: 700;
   user-select: none;
+  line-height: 0;
+}
 
-  &__left {
-    color: $interval-text-left;
-  }
+.intervalsInner {
+  justify-content: space-between;
+  width: 100%;
+}
 
-  &__right {
-    color: $interval-text-right;
-  }
+.intervalsOuter {
+  width: 100%;
+}
+
+.dummy {
+  flex-shrink: 0;
+}
+
+.intervalsOuter > .startColor {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.intervalsOuter > .endColor {
+  color: $interval-text-right;
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.startColor {
+  color: $interval-text-left;
+}
+
+.endColor {
+  color: $interval-text-right;
 }

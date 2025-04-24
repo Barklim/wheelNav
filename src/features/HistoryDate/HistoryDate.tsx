@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { WHEEL_NAV_CONSTANTS } from "../../constants/wheelNav";
-import { WheelNavWrapper } from "../WheelNav";
-import { PointImage } from "../PointImage";
-import { PointDot } from "../PointDot";
+import { WHEEL_NAV_CONSTANTS } from "../../shared/constants/wheelNav";
+import { WheelNavWrapper } from "../../shared/ui/WheelNav";
+import { PointImage } from "../../shared/ui/PointImage";
+import { PointDot } from "../../shared/ui/PointDot";
 import styles from "./HistoryDate.module.scss";
 
 export const HistoryDate = () => {
@@ -22,8 +22,6 @@ export const HistoryDate = () => {
         />
         <div className={styles.slider}>Slide: {activeItem}</div>
       </div>
-
-      <div className={styles.someBlock}></div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ export type TInterval = {
 };
 
 export type IntervalProps = {
-    intervals: TInterval;
+    intervals?: TInterval;
     activeItem: number;
     duration: number;
     radius: number;

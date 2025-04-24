@@ -1,4 +1,4 @@
-@use "../../constants/styles.scss" as *;
+@use "../../shared/constants/styles.scss" as *;
 
 .historyDateWrapper {
   display: flex;
@@ -22,10 +22,4 @@
   background-color: grey;
   height: 158px;
   width: 100%;
-}
-
-.someBlock {
-  background-color: grey;
-  height: 2000px;
-  width: 200px;
 }

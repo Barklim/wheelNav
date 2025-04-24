@@ -48,3 +48,7 @@ export const getRotationStepsToActive = (
 
   return 0;
 };
+
+export function excludeLast<T>(array: T[], n: number): T[] {
+  return array.slice(0, -n);
+}

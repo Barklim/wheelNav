@@ -12,7 +12,7 @@
   top: calc(50% - 0px);
 
   &_full {
-    width: 150vw !important;
+    width: 100vw !important;
     left: -50vw !important;
   }
 }
@@ -22,7 +22,7 @@
   left: calc(50% + 0px);
 
   &_full {
-    height: 150vh !important;
+    height: 120vh !important;
     top: -50vh !important;
   }
 }

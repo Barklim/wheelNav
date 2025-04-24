@@ -1,4 +1,4 @@
-import HistoryDatePage from "./pages/HistoryDate/HistoryDate";
+import { HistoryDatePage } from "./pages/HistoryDatePage";
 
 const App = () => (
     <HistoryDatePage />
